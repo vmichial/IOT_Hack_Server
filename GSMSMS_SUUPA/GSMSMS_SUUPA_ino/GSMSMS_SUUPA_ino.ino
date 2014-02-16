@@ -22,14 +22,13 @@
  */
 #include <SPI.h>
 #include <WiFi.h>
-#include <GSM.h>
 
 //GSM stuff
-GSM gsmAccess;
-GSM_SMS theText;
+//GSM gsmAccess;
+//GSM_SMS theText;
 
 
-char ssid[] = "hack1";      //  your network SSID (name) 
+char ssid[] = "hack2";      //  your network SSID (name) 
 char pass[] = "hack_iot";   // your network password
 int keyIndex = 0;                 // your network key Index number (needed only for WEP)
 
@@ -40,11 +39,11 @@ void setup() {
   Serial.begin(9600);      // initialize serial communication
   pinMode(9, OUTPUT);      // set the LED pin mode
 
-  gsmAccess.begin("6666");
+  //gsmAccess.begin("6666");
   
-   theTextbeginSMS("15103220738");
-   theText.print("EHRMAGERD!!");
-   theText.endSMS(); 
+   //theTextbeginSMS("15103220738");
+   //theText.print("EHRMAGERD!!");
+   //theText.endSMS(); 
   // check for the presence of the shield:
   if (WiFi.status() == WL_NO_SHIELD) {
     Serial.println("WiFi shield not present"); 
@@ -76,6 +75,7 @@ void loop() {
   if (client) {                             // if you get a client,
     Serial.println("new client");           // print a message out the serial port
     String currentLine = "";                // make a String to hold incoming data from the client
+    String saveData = "";
     while (client.connected()) {            // loop while the client's connected
       if (client.available()) {             // if there's bytes to read from the client,
         char c = client.read();             // read a byte, then
@@ -113,13 +113,14 @@ void loop() {
         }
 
         // Check to see if the client request was "GET /H" or "GET /L":
-        if (currentLine.endsWith("GET /H")) {
+        if (currentLine.endsWith("GET")) {
           
-          digitalWrite(9, HIGH);               // GET /H turns the LED on
+          saveData = currentLine;             // GET /H turns the LED on
+          Serial.println(saveData);
         }
-        if (currentLine.endsWith("GET /L")) {
-          digitalWrite(9, LOW);                // GET /L turns the LED off
-        }
+        //if (currentLine.endsWith("GET /L")) {
+        //  digitalWrite(9, LOW);                // GET /L turns the LED off
+        //}
       }
     }
     // close the connection:
@@ -149,4 +150,6 @@ void printWifiStatus() {
   // print where to go in a browser:
   Serial.print("To see this page in action, open a browser to http://");
   Serial.println(ip);
+  
+  
 }
