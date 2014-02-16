@@ -22,7 +22,6 @@
  */
 #include <SPI.h>
 #include <WiFi.h>
-#include <GSM.h>
 
 //GSM stuff;
 //GSM gsmAccess;
@@ -76,7 +75,6 @@ void loop() {
   if (client) {                             // if you get a client,
     Serial.println("new client");           // print a message out the serial port
     String currentLine = "";                // make a String to hold incoming data from the client
-    String saveData = "";
     while (client.connected()) {            // loop while the client's connected
       if (client.available()) {             // if there's bytes to read from the client,
         char c = client.read();             // read a byte, then
@@ -114,10 +112,11 @@ void loop() {
         }
 
         // Check to see if the client request was "GET /H" or "GET /L":
-        if (currentLine.endsWith("GET")) {
-          
-                    // GET /H turns the LED on
-
+       if (currentLine.endsWith("GET /H")) {
+          //digitalWrite(9, HIGH);               // GET /H turns the LED on
+        }
+        if (currentLine.endsWith("GET /L")) {
+          //digitalWrite(9, LOW);                // GET /L turns the LED off
         }
       }
     }
