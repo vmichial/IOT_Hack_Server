@@ -22,8 +22,9 @@
  */
 #include <SPI.h>
 #include <WiFi.h>
+#include <GSM.h>
 
-//GSM stuff
+//GSM stuff;
 //GSM gsmAccess;
 //GSM_SMS theText;
 
@@ -115,12 +116,9 @@ void loop() {
         // Check to see if the client request was "GET /H" or "GET /L":
         if (currentLine.endsWith("GET")) {
           
-          saveData = currentLine;             // GET /H turns the LED on
-          Serial.println(saveData);
+                    // GET /H turns the LED on
+
         }
-        //if (currentLine.endsWith("GET /L")) {
-        //  digitalWrite(9, LOW);                // GET /L turns the LED off
-        //}
       }
     }
     // close the connection:
